@@ -3,6 +3,7 @@ import Login from './components/Auth/Login'
 import EmployeeDashboard from './components/Dashboard/EmployeeDashboard'
 import AdminDashboard from './components/Dashboard/AdminDashboard'
 import { AuthContext } from './context/AuthProvider'
+import { getLocalStorage } from './utils/localStorage'
 
 const App = () => {
 
@@ -23,18 +24,21 @@ const App = () => {
 
 
   const handleLogin = (email, password) => {
-    if (email == 'admin@me.com' && password == '123') {
+    const { admin } = getLocalStorage()
+    const adminUser = admin.find((a) => a.email === email && a.password === password)
+    if (adminUser) {
       setUser('admin')
       localStorage.setItem('loggedInUser', JSON.stringify({ role: 'admin' }))
     } else if (userData) {
-      const employee = userData.find((e) => email == e.email && e.password == password)
+      const employee = userData.find((e) => email === e.email && e.password === password)
       if (employee) {
         setUser('employee')
         setLoggedInUserData(employee)
-        localStorage.setItem('loggedInUser', JSON.stringify({ role: 'employee',data:employee }))
+        localStorage.setItem('loggedInUser', JSON.stringify({ role: 'employee', data: employee } ))
+      } else {
+        alert("Invalid Credentials")
       }
-    }
-    else {
+    } else {
       alert("Invalid Credentials")
     }
   }
