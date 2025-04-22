@@ -30,7 +30,7 @@ const Login = ({ handleLogin }) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              type="email"
+              type="Enter Your Email"
               placeholder="Email address"
               className="border border-gray-300 rounded-lg px-4 py-3 text-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-500 transition duration-300 shadow-sm w-full"
             />
